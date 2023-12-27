@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CobaRecyclerView"
+rootProject.name = "BelajarSqlite"
 include(":app")
  

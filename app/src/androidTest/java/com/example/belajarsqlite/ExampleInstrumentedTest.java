@@ -1,4 +1,4 @@
-package com.example.cobarecyclerview;
+package com.example.belajarsqlite;
 
 import android.content.Context;
 

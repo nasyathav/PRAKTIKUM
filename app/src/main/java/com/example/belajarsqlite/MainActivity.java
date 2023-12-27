@@ -1,4 +1,4 @@
-package com.example.cobarecyclerview;
+package com.example.belajarsqlite;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<Mhs> mhsList;
+    Mhs mm;
+    DbHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent_list = new Intent( MainActivity.this, ListMhsActivity.class);
 
+        db = new DbHelper(getApplicationContext());
+
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,14 +44,20 @@ public class MainActivity extends AppCompatActivity {
                 if (isian_nama.isEmpty() || isian_nim.isEmpty() || isian_noHp.isEmpty()){
                     Toast.makeText(getApplicationContext(), "data masih kosong", Toast.LENGTH_SHORT).show();
                 }else {
-                    mhsList.add(new Mhs(isian_nama, isian_nim, isian_noHp));
+                    mm = new Mhs(-1, isian_nama, isian_nim, isian_noHp);
+                    boolean stts = db.simpan(mm);
 
-                    edNama.setText("");
-                    edNim.setText("");
-                    edNoHp.setText("");
+                    if(stts){
+                        edNama.setText("");
+                        edNim.setText("");
+                        edNoHp.setText("");
+                        Toast.makeText(getApplicationContext(),"Data berhasil disimpan", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Data gagal disimpan", Toast.LENGTH_LONG).show();
+                    }
 
-                    intent_list.putParcelableArrayListExtra("mhsList", mhsList);
-                    startActivity(intent_list);
+                    //intent_list.putParcelableArrayListExtra("mhsList", mhsList);
+                    //startActivity(intent_list);
                 }
             }
         });
@@ -55,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
         Button btnLihat = (Button) findViewById(R.id.btnLihat);
         btnLihat.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+
+                mhsList = db.List();
 
                 if (mhsList.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Belum Ada Data", Toast.LENGTH_SHORT).show();

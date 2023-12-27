@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.cobarecyclerview"
+    namespace = "com.example.belajarsqlite"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.cobarecyclerview"
+        applicationId = "com.example.belajarsqlite"
         minSdk = 22
         targetSdk = 33
         versionCode = 1
