@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BelajarSqlite"
+rootProject.name = "crudfirebase"
 include(":app")
  
